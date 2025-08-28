@@ -2,13 +2,30 @@ import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [newTask, setNewTask] = useState("");
 
-  const [chores, setChores] = useState(["go to sleep", "wake up", "dust"]);
+  const [chores, setChores] = useState(["homework", "wake up", "clean room"]);
 
-  function addChore(){
-	setChores([...chores, inputValue]);
+  function addChore() {
+    setChores([...chores, newTask]);
   }
+
+  const students = [
+    {
+      name: "Sean",
+      age: 25
+    },
+    {
+      name: "Bob",
+      age: 13
+    }
+  ]
+  // const filterChores = 
+
+  const oldStudents = students.filter(
+    (studentdata)=> studentdata.name.includes("b")
+  )
+  console.log("oldStudents", oldStudents)
 
   return (
     <div className="container">
@@ -16,8 +33,13 @@ const Home = () => {
         type="text"
         placeholder="Type new task here"
         onChange={(event) => {
-          const newTask = event.target.value;
-          setInputValue(newTask);
+          const typedTask = event.target.value;
+          setNewTask(typedTask);
+        }}
+        onKeyDown={(event) => {
+          if (event.key == "Enter") {
+            addChore();
+          }
         }}
       />
       <button onClick={() => addChore()}>Add task</button>
