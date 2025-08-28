@@ -1,31 +1,21 @@
 import React, { useState } from "react";
 
-//create your first component
+//to do list web application
 const Home = () => {
   const [newTask, setNewTask] = useState("");
 
-  const [chores, setChores] = useState(["homework", "wake up", "clean room"]);
+  const [tasks, setTasks] = useState(["homework", "Dust", "clean room"]);
 
-  function addChore() {
-    setChores([...chores, newTask]);
+  function addTask() {
+    setTasks([...tasks, newTask]);
   }
 
-  const students = [
-    {
-      name: "Sean",
-      age: 25
-    },
-    {
-      name: "Bob",
-      age: 13
-    }
-  ]
-  // const filterChores = 
+  const deleteTask = () => {
+    const filteredTasks = tasks.filter((taskData) => taskData != "wake up");
+    console.log("Dust:", filteredTasks);
 
-  const oldStudents = students.filter(
-    (studentdata)=> studentdata.name.includes("b")
-  )
-  console.log("oldStudents", oldStudents)
+
+  };
 
   return (
     <div className="container">
@@ -38,16 +28,23 @@ const Home = () => {
         }}
         onKeyDown={(event) => {
           if (event.key == "Enter") {
-            addChore();
+            addTask();
           }
         }}
       />
-      <button onClick={() => addChore()}>Add task</button>
+      <button onClick={() => addTask()}>Add task</button>
       <ul>
-        {chores.map((item, index) => {
-          return <li key={index + "chore"}>{item}</li>;
+        {tasks.map((item, index) => {
+          return <li key={index + "task"}>{item}</li>;
         })}
       </ul>
+      <button
+        onClick={() => {
+          deleteTask();
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
 };
