@@ -54,15 +54,17 @@ const Home = () => {
           tasks.map((item, index) => {
             return (
               <div>
-                <li key={index + "task"}>{item}</li>
-                <button
-                  onClick={() => {
-                    // Delete a specific hard-coded task
-                    deleteTask("clean room");
-                  }}
-                >
-                  X
-                </button>
+                <li key={index + "task"}>
+                  {item}
+                  <button
+                    onClick={() => {
+                      // Delete a specific hard-coded task
+                      deleteTask(item);
+                    }}
+                  >
+                    X
+                  </button>
+                </li>
               </div>
             );
           })
