@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 
-//to do list web application
+//TO DO LIST WEB APPLICATION
 const Home = () => {
+  //New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
+  //The list of tasks with default hard-coded tasks
   const [tasks, setTasks] = useState(["homework", "Dust", "clean room"]);
 
+  //Adds the user's typed task to the array of tasks
   function addTask() {
     setTasks([...tasks, newTask]);
   }
 
-  const deleteTask = () => {
-    const filteredTasks = tasks.filter((taskData) => taskData != "wake up");
+  //Delete a specific task
+  const deleteTask = (taskToDelete) => {
+    const filteredTasks = tasks.filter((taskData) => taskData != taskToDelete);
     console.log("Dust:", filteredTasks);
-
-
+    setTasks(filteredTasks);
   };
 
+  //User can input text in a field and click button or press enter to add typed task to tasks array
   return (
     <div className="container">
       <input
