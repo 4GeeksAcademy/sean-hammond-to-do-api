@@ -11,6 +11,7 @@ const Home = () => {
   // Adds the user's typed task to the array of tasks
   function addTask() {
     setTasks([...tasks, newTask]);
+    setNewTask("");
   }
 
   // Delete a specific task
@@ -24,6 +25,7 @@ const Home = () => {
   return (
     <div className="container">
       <input
+        value={newTask}
         type="text"
         placeholder="Type new task here"
         onChange={
@@ -46,7 +48,7 @@ const Home = () => {
           () => addTask()
         }
       >
-        Add task
+        <span>+</span><span>Add task</span>
       </button>
       <ul>
         {
