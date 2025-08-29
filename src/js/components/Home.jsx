@@ -105,6 +105,7 @@ const Home = () => {
       <p><strong>It might clear duplicates if</strong> someone types accidental spaces at the end of a task, but this is unlikely in practice. It also might clear duplicates with the right combination of adds and clears.</p>
       <p>Alternatively, I could have added a number to each task, but this would be more complicated to code since the numbers would have to change each time a task is cleared, or otherwise be hidden, which requires more code.</p>
       <small>*Only one space is shown.</small>
+      <footer><p><strong>Created by Sean Hammond</strong></p><p>Mentors: Alex Ayala and Thomas Brito</p><p>This and many other projects are built by students as part of the 4Geeks Academy Coding Bootcamp by Alejandro Sanchez and many other contributors.</p></footer>
     </div>
   );
 };

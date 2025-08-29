@@ -10,13 +10,14 @@ h1 {
 }
 
 h2 {
-    color: darkgreen;
-    font-size: 12pt;
-    font-weight: bold;
-    margin-top: 50px;
+  color: darkgreen;
+  font-size: 12pt;
+  font-weight: bold;
+  margin-top: 50px;
 }
 
 input {
+  background-color: aliceblue;
   min-width: 75%;
 }
 
@@ -57,4 +58,16 @@ li button:hover {
 .text-success {
   font-style: italic;
   font-weight: bold;
+}
+
+footer {
+  background-color: aliceblue;
+  font-size: 10pt;
+  margin-top: 20px;
+  padding: 7px;
+  text-align: center;
+}
+
+strong {
+  color: rgb(4, 74, 74);
 }
