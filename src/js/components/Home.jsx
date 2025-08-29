@@ -21,7 +21,6 @@ const Home = () => {
   // Delete a specific task
   const deleteTask = (taskToDelete) => {
     const filteredTasks = tasks.filter((taskData) => taskData != taskToDelete);
-    console.log("Dust:", filteredTasks);
     setTasks(filteredTasks);
   };
 
