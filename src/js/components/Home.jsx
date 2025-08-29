@@ -28,6 +28,9 @@ const Home = () => {
   // User can input text in a field and click button or press enter to add typed task to tasks array
   return (
     <div className="container">
+      <h1>Simple Task List</h1>
+      <p>Use this to quickly brainstorm a task list.</p>
+      <p>Tasks WILL NOT BE SAVED when the page is closed/reloaded.</p>
       <input
         value={newTask}
         type="text"
@@ -75,7 +78,7 @@ const Home = () => {
         }
         {
           // Message if there are no tasks
-          tasks.length == 0 && <li>All clear for the day!</li>
+          tasks.length == 0 && <li className="text-success">All clear!</li>
         }
         {
           // Button to clear all tasks appears unless there are no tasks
@@ -86,7 +89,7 @@ const Home = () => {
                 setTasks([]);
               }}
             >
-              Clear all tasks
+              Clear {tasks.length} task{tasks.length > 1 && "s"}
             </button>
           )
         }
@@ -96,3 +99,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// Note: I added my own comments/code and did not rely on copy and paste from a.i.

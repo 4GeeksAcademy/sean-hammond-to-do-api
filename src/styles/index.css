@@ -1,22 +1,52 @@
+body {
+  background-color: lightcyan;
+  padding: 20px;
+}
+
+h1 {
+  color: darkgreen;
+  min-width: 100%;
+}
+
+input {
+  min-width: 75%;
+}
+
 button {
-    background-color: rgb(8, 231, 8);
-    font-weight: 500;
+  background-color: rgb(8, 231, 8);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: whitesmoke;
 }
 
 li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 ul button {
-    background-color: lightpink;
-    font-size: 10pt;
-    margin-top: 10px;
+  background-color: lightpink;
+  font-size: 10pt;
+  margin-top: 10px;
 }
 
 li button {
-    border: none;
-    background-color: transparent;
-    color: red;
-    font-size: .75rem;
-    font-weight: bold;
+  border: none;
+  background-color: transparent;
+  color: gray;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+li button:hover {
+  color: red;
+  background-color: lightpink;
+}
+
+.text-success {
+  font-style: italic;
+  font-weight: bold;
 }
