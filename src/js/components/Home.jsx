@@ -5,12 +5,16 @@ const Home = () => {
   // New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
-  // The list of tasks with default hard-coded tasks
-  const [tasks, setTasks] = useState(["homework", "Dust", "clean room"]);
+  // The array of tasks
+  const [tasks, setTasks] = useState([
+    // "This is a demo task", // Default task can be set here
+  ]);
 
   // Adds the user's typed task to the array of tasks
   function addTask() {
-    setTasks([...tasks, newTask]);
+    if (newTask.trim() !== "") {
+      setTasks([...tasks, newTask]);
+    }
     setNewTask("");
   }
 
@@ -48,28 +52,43 @@ const Home = () => {
           () => addTask()
         }
       >
-        <span>+</span><span>Add task</span>
+        Add task
       </button>
       <ul>
         {
           // Print each task as a li
           tasks.map((item, index) => {
             return (
-              <div>
-                <li key={index + "task"}>
-                  {item}
-                  <button
-                    onClick={() => {
-                      // Delete a specific hard-coded task
-                      deleteTask(item);
-                    }}
-                  >
-                    X
-                  </button>
-                </li>
-              </div>
+              <li key={index + "task"}>
+                {item}
+                <button
+                  onClick={() => {
+                    // Delete a selected task
+                    deleteTask(item);
+                  }}
+                >
+                  X
+                </button>
+              </li>
             );
           })
+        }
+        {
+          // Message if there are no tasks
+          tasks.length == 0 && <li>All clear for the day!</li>
+        }
+        {
+          // Button to clear all tasks appears unless there are no tasks
+          tasks.length > 0 && (
+            <button
+              onClick={() => {
+                // Delete all tasks by clearing tasks array
+                setTasks([]);
+              }}
+            >
+              Clear all tasks
+            </button>
+          )
         }
       </ul>
     </div>
