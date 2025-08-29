@@ -9,6 +9,13 @@ h1 {
   min-width: 100%;
 }
 
+h2 {
+    color: darkgreen;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
 input {
   min-width: 75%;
 }

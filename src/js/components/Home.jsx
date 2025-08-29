@@ -13,7 +13,7 @@ const Home = () => {
   // Adds the user's typed task to the array of tasks
   function addTask() {
     if (newTask.trim() !== "") {
-      setTasks([...tasks, newTask]);
+      setTasks([...tasks, newTask + " ".repeat(tasks.length)]); // Each task has unique number of spaces. Clever way I came up with to ensure duplicates are not deleted.
     }
     setNewTask("");
   }
@@ -93,10 +93,22 @@ const Home = () => {
           )
         }
       </ul>
+      <h2>Developer notes:</h2>
+      <p><strong>Duplicate tasks will not usually be cleared</strong> when one copy is cleared. My workaround was to add a unique number of spaces to each task (which the browser visually omits*).</p><p>The reason I did this is in case someone intends to complete the same task multiple times. For example, you might type:</p>
+      <ul>
+        <li>Do some work</li>
+        <li>Take a break</li>
+        <li>Do some work</li>
+        <li>Take a break</li>
+      </ul>
+      <p>Without the workaround, when you clear one task, the duplicate is also cleared, making it frustrating if you expected it to only clear one. </p>
+      <p><strong>It might clear duplicates if</strong> someone types accidental spaces at the end of a task, but this is unlikely in practice. It also might clear duplicates with the right combination of adds and clears.</p>
+      <p>Alternatively, I could have added a number to each task, but this would be more complicated to code since the numbers would have to change each time a task is cleared, or otherwise be hidden, which requires more code.</p>
+      <small>*Only one space is shown.</small>
     </div>
   );
 };
 
 export default Home;
 
-// Note: I added my own comments/code and did not rely on copy and paste from a.i.
+// Integrity statement: I added my own comments/code and did not rely on copy-and-paste from a.i.
