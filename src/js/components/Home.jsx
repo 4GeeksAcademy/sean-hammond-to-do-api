@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from "react";
 
+const url = "https://playground.4geeks.com/todo"
+
+const createUser = ()=> {
+  
+}
+
 // TO DO LIST WEB APPLICATION. Comments added for self-learning.
 const Home = () => {
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
     () => {
-      fetch("https://playground.4geeks.com/todo/users") // URL for get/post/etc. request goes here
+      fetch(url + "/users") // URL for get/post/etc. request goes here
         // Initial response to the fetch. If it goes good, it goes to the next .then. NOTE: You can leave this blank for GET requests.
         .then(
           // The response goes here
-          (resp) => {console.log("response:", resp);}
+          (resp) => {
+            console.log("response:", resp);
+            return resp.json();
+          }
         )
 
         // Final result of the request
-        .then(
-          (data)=> {console.log("data:", resp);}
-        );
+        .then((data) => {
+          console.log("data:", resp);
+        });
     },
     []
   );
