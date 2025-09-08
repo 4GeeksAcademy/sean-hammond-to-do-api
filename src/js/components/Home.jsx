@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const url = "https://playground.4geeks.com/todo"
+const url = "https://playground.4geeks.com/todo";
 
-const createUser = ()=> {
-  
-}
+const createUser = () => {
+  const options = {
+    method: "POST"
+  }
+  fetch(url + "/users/sean-hammond")
+  .then()
+  .then()
+};
 
 // TO DO LIST WEB APPLICATION. Comments added for self-learning.
 const Home = () => {
