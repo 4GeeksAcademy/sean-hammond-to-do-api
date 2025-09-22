@@ -18,25 +18,33 @@ const createUser = () => {
     .then((d) => console.log("created user data:", d));
 };
 
+const getAllUsers = () => {
+  fetch(url + "/users") // URL for get/post/etc. request goes here
+    // Initial response to the fetch. If it goes good, it goes to the next .then. NOTE: You can leave this blank for GET requests.
+    .then(
+      // The response goes here
+      (resp) => {
+        console.log("response:", resp);
+        return resp.json();
+      }
+    )
+    // Final result of the request
+    .then((data) => {
+      console.log("data (users):", resp);
+    });
+};
+
+const getTasks = () => {
+  fetch(url + "/users/sean-hammond")
+  .then((resp)=>{return resp.json()})
+  .then((data)=>{console.log("data (to dos): ", data)})
+}
+
 // TO DO LIST WEB APPLICATION. Comments added for self-learning.
 const Home = () => {
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
     () => {
-      fetch(url + "/users") // URL for get/post/etc. request goes here
-        // Initial response to the fetch. If it goes good, it goes to the next .then. NOTE: You can leave this blank for GET requests.
-        .then(
-          // The response goes here
-          (resp) => {
-            console.log("response:", resp);
-            return resp.json();
-          }
-        )
-
-        // Final result of the request
-        .then((data) => {
-          console.log("data:", resp);
-        });
       createUser();
     },
     []
