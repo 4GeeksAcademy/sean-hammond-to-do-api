@@ -52,12 +52,20 @@ const Home = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({
+      body: JSON.stringify(
         {
-          "label": "Clean the house",
-          "is_done": false
-        }
-      }),
+          label: "Clean the house",
+          is_done: false,
+        },
+        fetch(url + "/todos/sean-hammond", options)
+          .then((resp) => {
+            console.log("response: ", resp);
+            return resp.json();
+          })
+          .then((data) => {
+            console.log("Create user data: ", data);
+          })
+      ),
     };
   };
 
@@ -160,6 +168,7 @@ const Home = () => {
           )
         }
       </ul>
+      <button onClick={addTaskWithAPI}>Add a task to save overnight.</button>
       <footer>
         <p>
           <strong>Created by Sean Hammond</strong>
