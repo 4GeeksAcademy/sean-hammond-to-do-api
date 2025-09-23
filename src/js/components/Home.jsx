@@ -36,15 +36,35 @@ const getAllUsers = () => {
 
 const getTasks = () => {
   fetch(url + "/users/sean-hammond")
-  .then((resp)=>{return resp.json()})
-  .then((data)=>{console.log("data (to dos): ", data)})
-}
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      console.log("data (to dos): ", data);
+    });
+};
 
 // TO DO LIST WEB APPLICATION. Comments added for self-learning.
 const Home = () => {
+  const addTaskWithAPI = () => {
+    let options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        {
+          "label": "Clean the house",
+          "is_done": false
+        }
+      }),
+    };
+  };
+
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
     () => {
+      getTasks();
       createUser();
     },
     []
