@@ -24,13 +24,13 @@ const getAllUsers = () => {
     .then(
       // The response goes here
       (resp) => {
-        console.log("response:", resp);
+        // console.log("get all users - response:", resp.json());
         return resp.json();
       }
     )
     // Final result of the request
     .then((data) => {
-      console.log("data (users):", resp);
+      console.log("Get all users - data:", resp);
     });
 };
 
@@ -52,26 +52,26 @@ const Home = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(
-        {
-          label: "Clean the house",
-          is_done: false,
-        },
-        fetch(url + "/todos/sean-hammond", options)
-          .then((resp) => {
-            console.log("response: ", resp);
-            return resp.json();
-          })
-          .then((data) => {
-            console.log("Create user data: ", data);
-          })
-      ),
+      body: JSON.stringify({
+        label: "Wash the car!!",
+        is_done: false,
+      }),
     };
+    fetch(url + "/todos/sean-hammond", options)
+      .then((resp) => {
+        console.log("response: ", resp);
+        return resp.json();
+      })
+      .then((data) => {
+        console.log("Create user data: ", data);
+      });
   };
 
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
     () => {
+      getAllUsers();
+      addTaskWithAPI();
       getTasks();
       createUser();
     },
@@ -104,7 +104,14 @@ const Home = () => {
   return (
     <div className="container">
       <h1>API Task List</h1>
-      <p>Tasks WILL BE SAVED when the page is closed/reloaded.</p>
+      <p>
+        Click "Now" or press Enter to make a temporary task. These will be
+        deleted when the page is reloaded or closed.
+      </p>
+      <p>
+        Click "All day" to save your tasks even after the page is reloaded or
+        closed. TASK LIST MAY RESET OVERNIGHT.
+      </p>
       <input
         value={newTask}
         type="text"
@@ -129,8 +136,9 @@ const Home = () => {
           () => addTask()
         }
       >
-        Add task
+        Now <small>(Enter)</small>
       </button>
+      <button onClick={addTaskWithAPI}>All Day</button>
       <ul>
         {
           // Print each task as a li
@@ -168,7 +176,6 @@ const Home = () => {
           )
         }
       </ul>
-      <button onClick={addTaskWithAPI}>Add a task to save overnight.</button>
       <footer>
         <p>
           <strong>Created by Sean Hammond</strong>
