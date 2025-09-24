@@ -20,12 +20,12 @@ const createUser = () => {
 
 const deleteTaskWithAPI = (taskId) => {
   const options = {
-      method: "DELETE",
-      headers: { "content-type": "application/json" },
-    };
-    fetch(url + "/todos/" + taskId, options)
-      .then((response) => response.json())
-      .then((data) => console.log("Deleted tasks: ", data));
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+  };
+  fetch(url + "/todos/" + taskId, options)
+    .then((response) => response.json())
+    .then((data) => console.log("Deleted tasks: ", data));
 };
 
 const maxIdNumberOfTasks = 200;
@@ -64,6 +64,16 @@ const Home = () => {
   // New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
+  const getTasks = () => {
+    fetch(url + "/users/sean-hammond")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setTasks(data.todos);
+      });
+  };
+
   const addTaskWithAPI = (label) => {
     let options = {
       method: "POST",
@@ -83,7 +93,7 @@ const Home = () => {
       .then((data) => {
         console.log("Create user data: ", data);
       });
-      getTasks();
+    getTasks();
   };
 
   // The array of tasks
@@ -96,16 +106,6 @@ const Home = () => {
     }
     setNewTask("");
   }
-
-  const getTasks = () => {
-    fetch(url + "/users/sean-hammond")
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        setTasks(data.todos);
-      });
-  };
 
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
@@ -133,7 +133,8 @@ const Home = () => {
       <h1>Today's Task List</h1>
       <p>
         Click "Save task" to save your tasks even after the page is reloaded or
-        closed. TASK LIST MAY RESET OVERNIGHT. The list should support up to {maxIdNumberOfTasks} tasks.
+        closed. TASK LIST MAY RESET OVERNIGHT. The list should support up to{" "}
+        {maxIdNumberOfTasks} tasks.
       </p>
       <input
         value={newTask}
