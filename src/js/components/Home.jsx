@@ -106,10 +106,10 @@ const Home = () => {
     addTaskWithAPI();
   }
 
-  function whenDeleteBtnClicked() {
-    deleteTask();
-    deleteTaskWithAPI();
-  }
+  // function whenDeleteBtnClicked() {
+  //   deleteTask();
+  //   deleteTaskWithAPI();
+  // }
 
   // Delete a specific task
   const deleteTask = (taskToDelete) => {
@@ -140,7 +140,7 @@ const Home = () => {
           // Add typed task to list if enter key pressed
           if (event.key == "Enter") {
             addTask();
-            addTaskWithAPI;
+            addTaskWithAPI();
           }
         }}
       />
@@ -163,7 +163,7 @@ const Home = () => {
                   onClick={() => {
                     // Delete a selected task
                     deleteTask(item);
-                    deleteTaskWithAPI(13);
+                    deleteTaskWithAPI(item.id);
                   }}
                 >
                   X
