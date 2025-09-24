@@ -83,6 +83,7 @@ const Home = () => {
       .then((data) => {
         console.log("Create user data: ", data);
       });
+      getTasks();
   };
 
   // The array of tasks
