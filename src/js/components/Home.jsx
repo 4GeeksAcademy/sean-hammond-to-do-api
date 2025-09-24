@@ -20,12 +20,26 @@ const createUser = () => {
 
 const deleteTaskWithAPI = (taskId) => {
   const options = {
-    method: "DELETE",
-    headers: { "content-type": "application/json" },
-  };
-  fetch(url + "/todos/" + taskId, options)
-    .then((response) => response.json())
-    .then((data) => console.log("Deleted tasks: ", data));
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+    };
+    fetch(url + "/todos/" + taskId, options)
+      .then((response) => response.json())
+      .then((data) => console.log("Deleted tasks: ", data));
+};
+
+const maxIdNumberOfTasks = 200;
+
+const deleteAllTasksWithAPI = () => {
+  for (let i = 0; i < maxIdNumberOfTasks; i++) {
+    const options = {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+    };
+    fetch(url + "/todos/" + i, options)
+      .then((response) => response.json())
+      .then((data) => console.log("Deleted tasks: ", data));
+  }
 };
 
 const getAllUsers = () => {
@@ -50,14 +64,14 @@ const Home = () => {
   // New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
-  const addTaskWithAPI = () => {
+  const addTaskWithAPI = (label) => {
     let options = {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        label: newTask,
+        label: label,
         is_done: false,
       }),
     };
@@ -103,13 +117,8 @@ const Home = () => {
 
   function whenSaveBtnClicked() {
     addTask();
-    addTaskWithAPI();
+    addTaskWithAPI(newTask);
   }
-
-  // function whenDeleteBtnClicked() {
-  //   deleteTask();
-  //   deleteTaskWithAPI();
-  // }
 
   // Delete a specific task
   const deleteTask = (taskToDelete) => {
@@ -123,7 +132,7 @@ const Home = () => {
       <h1>Today's Task List</h1>
       <p>
         Click "Save task" to save your tasks even after the page is reloaded or
-        closed. TASK LIST MAY RESET OVERNIGHT.
+        closed. TASK LIST MAY RESET OVERNIGHT. The list should support up to {maxIdNumberOfTasks} tasks.
       </p>
       <input
         value={newTask}
@@ -140,7 +149,7 @@ const Home = () => {
           // Add typed task to list if enter key pressed
           if (event.key == "Enter") {
             addTask();
-            addTaskWithAPI();
+            addTaskWithAPI(newTask);
           }
         }}
       />
@@ -183,6 +192,7 @@ const Home = () => {
               onClick={() => {
                 // Delete all tasks by clearing tasks array
                 setTasks([]);
+                deleteAllTasksWithAPI();
               }}
             >
               Clear {tasks.length} task{tasks.length > 1 && "s"}
