@@ -64,6 +64,17 @@ const Home = () => {
   // New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
+  // The array of tasks
+  const [tasks, setTasks] = useState(["Example task"]);
+
+  // Adds the user's typed task to the array of tasks
+  function addTask() {
+    if (newTask.trim() !== "") {
+      setTasks([...tasks, newTask + " ".repeat(tasks.length)]); // Each task has unique number of spaces. Clever way I came up with to ensure duplicates are not deleted.
+    }
+    setNewTask("");
+  }
+
   const getTasks = () => {
     fetch(url + "/users/sean-hammond")
       .then((resp) => {
@@ -95,17 +106,6 @@ const Home = () => {
       });
     getTasks();
   };
-
-  // The array of tasks
-  const [tasks, setTasks] = useState(["Example task"]);
-
-  // Adds the user's typed task to the array of tasks
-  function addTask() {
-    if (newTask.trim() !== "") {
-      setTasks([...tasks, newTask + " ".repeat(tasks.length)]); // Each task has unique number of spaces. Clever way I came up with to ensure duplicates are not deleted.
-    }
-    setNewTask("");
-  }
 
   useEffect(
     // Whatever is in the arrow function is what going to happen when the page loads.
