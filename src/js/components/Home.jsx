@@ -86,6 +86,7 @@ const Home = () => {
   };
 
   const addTaskWithAPI = (label) => {
+    setNewTask("");
     let options = {
       method: "POST",
       headers: {
@@ -132,6 +133,7 @@ const Home = () => {
     <div className="container">
       <h1>Today's Task List</h1>
       <p>
+        <strong>PLEASE REFRESH IF ENCOUNTERING ISSUES AS THE UDATES TO THE TASK LIST MAY TAKE A FEW SECONDS.</strong><br />
         Click "Save task" to save your tasks even after the page is reloaded or
         closed. TASK LIST MAY RESET OVERNIGHT. The list should support up to{" "}
         {maxIdNumberOfTasks} tasks.
