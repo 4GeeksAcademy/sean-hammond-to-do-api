@@ -44,8 +44,11 @@ const getTasks = () => {
     });
 };
 
-// TO DO LIST WEB APPLICATION. Comments added for self-learning.
 const Home = () => {
+
+  // New task is empty string until user types and submits it to the tasks array
+  const [newTask, setNewTask] = useState("");
+
   const addTaskWithAPI = () => {
     let options = {
       method: "POST",
@@ -53,7 +56,7 @@ const Home = () => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        label: "Wash the car!!",
+        label: newTask,
         is_done: false,
       }),
     };
@@ -77,9 +80,6 @@ const Home = () => {
     },
     []
   );
-
-  // New task is empty string until user types and submits it to the tasks array
-  const [newTask, setNewTask] = useState("");
 
   // The array of tasks
   const [tasks, setTasks] = useState([
