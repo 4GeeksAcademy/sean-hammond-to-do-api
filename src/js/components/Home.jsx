@@ -18,6 +18,16 @@ const createUser = () => {
     .then((d) => console.log("created user data:", d));
 };
 
+const deleteTaskWithAPI = (taskId) => {
+  const options = {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+  };
+  fetch(url + "/todos/" + taskId, options)
+    .then((response) => response.json())
+    .then((data) => console.log("Deleted tasks: ", data));
+};
+
 const getAllUsers = () => {
   fetch(url + "/users") // URL for get/post/etc. request goes here
     // Initial response to the fetch. If it goes good, it goes to the next .then. NOTE: You can leave this blank for GET requests.
@@ -31,8 +41,11 @@ const getAllUsers = () => {
     // Final result of the request
     .then((data) => {
       console.log("Get all users - data:", resp);
+      
     });
 };
+
+let copyOfTasksInAPI = [{label: "", is_done: false, id: 999}];
 
 const getTasks = () => {
   fetch(url + "/users/sean-hammond")
@@ -41,11 +54,11 @@ const getTasks = () => {
     })
     .then((data) => {
       console.log("data (to dos): ", data);
+      copyOfTasksInAPI = JSON.parse(data); // I added this myself. It is a copy of the API todos list as a JS object that will be edited to become a regular array of strings later below.
     });
 };
 
 const Home = () => {
-
   // New task is empty string until user types and submits it to the tasks array
   const [newTask, setNewTask] = useState("");
 
@@ -74,17 +87,20 @@ const Home = () => {
     // Whatever is in the arrow function is what going to happen when the page loads.
     () => {
       getAllUsers();
-      addTaskWithAPI();
       getTasks();
       createUser();
     },
     []
   );
-
+  
+  // Remove all key-value pairs from the object except label (label refers to tasks)
+  delete copyOfTasksInAPI.is_done;
+  delete copyOfTasksInAPI.id;
+  // Removing the keys to get only the values of tasks
+  const temporaryArray = copyOfTasksInAPI.map(x => x.label);
+  
   // The array of tasks
-  const [tasks, setTasks] = useState([
-    // "This is a demo task", // Default task can be set here
-  ]);
+  const [tasks, setTasks] = useState(copyOfTasksInAPI.map(x => x.label));
 
   // Adds the user's typed task to the array of tasks
   function addTask() {
@@ -92,6 +108,16 @@ const Home = () => {
       setTasks([...tasks, newTask + " ".repeat(tasks.length)]); // Each task has unique number of spaces. Clever way I came up with to ensure duplicates are not deleted.
     }
     setNewTask("");
+  }
+
+  function whenSaveBtnClicked() {
+    addTask();
+    addTaskWithAPI();
+  }
+
+  function whenDeleteBtnClicked() {
+    deleteTask();
+    deleteTaskWithAPI();
   }
 
   // Delete a specific task
@@ -103,13 +129,9 @@ const Home = () => {
   // User can input text in a field and click button or press enter to add typed task to tasks array
   return (
     <div className="container">
-      <h1>API Task List</h1>
+      <h1>Today's Task List</h1>
       <p>
-        Click "Now" or press Enter to make a temporary task. These will be
-        deleted when the page is reloaded or closed.
-      </p>
-      <p>
-        Click "All day" to save your tasks even after the page is reloaded or
+        Click "Save task" to save your tasks even after the page is reloaded or
         closed. TASK LIST MAY RESET OVERNIGHT.
       </p>
       <input
@@ -127,18 +149,18 @@ const Home = () => {
           // Add typed task to list if enter key pressed
           if (event.key == "Enter") {
             addTask();
+            addTaskWithAPI;
           }
         }}
       />
       <button
         onClick={
           // Add typed task to list if add button clicked
-          () => addTask()
+          () => whenSaveBtnClicked()
         }
       >
-        Now <small>(Enter)</small>
+        Save task
       </button>
-      <button onClick={addTaskWithAPI}>All Day</button>
       <ul>
         {
           // Print each task as a li
@@ -150,6 +172,7 @@ const Home = () => {
                   onClick={() => {
                     // Delete a selected task
                     deleteTask(item);
+                    deleteTaskWithAPI(13);
                   }}
                 >
                   X
