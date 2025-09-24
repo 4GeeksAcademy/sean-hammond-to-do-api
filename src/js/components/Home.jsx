@@ -41,22 +41,10 @@ const getAllUsers = () => {
     // Final result of the request
     .then((data) => {
       console.log("Get all users - data:", resp);
-      
     });
 };
 
-let copyOfTasksInAPI = [{label: "", is_done: false, id: 999}];
-
-const getTasks = () => {
-  fetch(url + "/users/sean-hammond")
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
-      console.log("data (to dos): ", data);
-      copyOfTasksInAPI = JSON.parse(data); // I added this myself. It is a copy of the API todos list as a JS object that will be edited to become a regular array of strings later below.
-    });
-};
+// let copyOfTasksInAPI = [{ label: "", is_done: false, id: 999 }];
 
 const Home = () => {
   // New task is empty string until user types and submits it to the tasks array
@@ -83,24 +71,8 @@ const Home = () => {
       });
   };
 
-  useEffect(
-    // Whatever is in the arrow function is what going to happen when the page loads.
-    () => {
-      getAllUsers();
-      getTasks();
-      createUser();
-    },
-    []
-  );
-  
-  // Remove all key-value pairs from the object except label (label refers to tasks)
-  delete copyOfTasksInAPI.is_done;
-  delete copyOfTasksInAPI.id;
-  // Removing the keys to get only the values of tasks
-  const temporaryArray = copyOfTasksInAPI.map(x => x.label);
-  
   // The array of tasks
-  const [tasks, setTasks] = useState(copyOfTasksInAPI.map(x => x.label));
+  const [tasks, setTasks] = useState(["Example task"]);
 
   // Adds the user's typed task to the array of tasks
   function addTask() {
@@ -109,6 +81,25 @@ const Home = () => {
     }
     setNewTask("");
   }
+
+  const getTasks = () => {
+    fetch(url + "/users/sean-hammond")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setTasks(data.todos);
+      });
+  };
+
+  useEffect(
+    // Whatever is in the arrow function is what going to happen when the page loads.
+    () => {
+      createUser();
+      getTasks();
+    },
+    []
+  );
 
   function whenSaveBtnClicked() {
     addTask();
@@ -167,7 +158,7 @@ const Home = () => {
           tasks.map((item, index) => {
             return (
               <li key={index + "task"}>
-                {item}
+                {item.label}
                 <button
                   onClick={() => {
                     // Delete a selected task
