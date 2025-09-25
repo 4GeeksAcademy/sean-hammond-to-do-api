@@ -104,8 +104,8 @@ const Home = () => {
       })
       .then((data) => {
         console.log("Create user data: ", data);
+        getTasks();
       });
-    getTasks();
   };
 
   useEffect(
